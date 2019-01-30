@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Media } from "reactstrap";
 import { Card, CardImg, CardBody,CardText, CardTitle, CardImgOverlay} from "reactstrap";
+import Dishdetail from "./DishdetailComponent";
 
 class Menu extends Component {
 
@@ -16,11 +16,11 @@ class Menu extends Component {
     OnDishSelect(dish){
         // 设置state.seleceDish 值为 所点击数据
         this.setState({selectedDish:dish})
-        console.log(this.state.selectedDish)
     }
 
     //渲染点击Card
     renderDish(dish) {
+        // console.log(dish)
         if (dish != null) {
             return(
                 <Card>
@@ -55,7 +55,7 @@ class Menu extends Component {
                     </Card>
                 </div>
             )
-        })
+        });
 
         return(
             <div className="container">
@@ -63,11 +63,12 @@ class Menu extends Component {
                 <div className="row">
                     {menu}
                 </div>
-
                 <div className="row">
-                    <div  className="col-12 col-md-5 m-1">
+                    <div className="col-12 col-md-5 m-1">
                         {this.renderDish(this.state.selectedDish)}
                     </div>
+
+                    <Dishdetail dishSelect={this.state.selectedDish}></Dishdetail>
                 </div>
 
             </div>
