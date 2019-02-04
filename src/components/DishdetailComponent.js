@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, CardImg, CardBody,CardText, CardTitle, CardImgOverlay} from "reactstrap";
+import { Card, CardImg, CardBody,CardText, CardTitle} from "reactstrap";
 
 class Dishdetail extends Component {
 
@@ -50,12 +50,12 @@ class Dishdetail extends Component {
                 // console.log(this.formatDate({date}))
 
                 return(
-
                     <li key={comments.id} >
-                        <p>{comments.comment}</p>
-                        <p>--{comments.author},{this.formatDate({date})}</p>
+                        <div>
+                            <p>{comments.comment}</p>
+                            <p>--{comments.author},{this.formatDate({date})}</p>
+                        </div>
                     </li>
-
 
                 )
             })
@@ -83,9 +83,14 @@ class Dishdetail extends Component {
         console.log(dishSelect);
 
         return dishSelect?(
+            <div className="row">
+                <div className="col-12 col-md-5 m-1">
+                    {this.renderDish(dishSelect)}
+                </div>
                 <div className="col-12 col-md-5 m-1">
                     {this.renderComments(dishSelect.comments)}
                 </div>
+            </div>
         ):(
             <div></div>
         )
