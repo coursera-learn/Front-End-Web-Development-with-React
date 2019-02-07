@@ -10,26 +10,28 @@ class Dishdetail extends Component {
         }
     }
 
-    formatDate({ date }) {
-        return new Date(date).toLocaleDateString("en-US", {
-          year: "numeric",
-          month: "short",
-          day: "numeric"
-        });
-      }
+    // formatDate({ date }) {
+    //     return new Date(date).toLocaleDateString("en-US", {
+    //       year: "numeric",
+    //       month: "short",
+    //       day: "numeric"
+    //     });
+    //   }
 
     //渲染点击Card
     renderDish(dish) {
         // console.log(dish)
         if (dish != null) {
             return(
-                <Card>
-                    <CardImg width="100%" src={dish.image} alt={dish.name} />
-                    <CardBody>
-                        <CardTitle>{dish.name}</CardTitle>
-                        <CardText>{dish.description}</CardText>
-                    </CardBody>
-                </Card>
+                <div className="col-12 col-md-5 m-1">
+                    <Card>
+                        <CardImg width="100%" src={dish.image} alt={dish.name} />
+                        <CardBody>
+                            <CardTitle>{dish.name}</CardTitle>
+                            <CardText>{dish.description}</CardText>
+                        </CardBody>
+                    </Card>
+                </div>
             )
         }
         else{
@@ -39,21 +41,18 @@ class Dishdetail extends Component {
         }
     }
 
-    renderComments(comments){
+    renderComments(comment){
         // console.log(comments)
-        if (comments != null) {
+        if (comment != null) {
 
-            let list = comments.map((comments)=>{
-
-                // 截取字符串
-                let date = comments.date
-                // console.log(this.formatDate({date}))
+            let list = comment.map((comment)=>{
 
                 return(
-                    <li key={comments.id} >
+                    <li key={comment.id} >
                         <div>
-                            <p>{comments.comment}</p>
-                            <p>--{comments.author},{this.formatDate({date})}</p>
+                            <p>{comment.comment}</p>
+                            <p>--{comment.author},
+                            {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}</p>
                         </div>
                     </li>
 
@@ -61,12 +60,12 @@ class Dishdetail extends Component {
             })
 
             return(
-                <div>
-                    <h4>Comments</h4>
-                    <ul className="list-unstyled">
-                        {list}
-                    </ul>
-                </div>
+                    <div className="col-12 col-md-5 m-1">
+                        <h4>Comments</h4>
+                        <ul className="list-unstyled">
+                            {list}
+                        </ul>
+                    </div>
             )
         }
         else{
@@ -79,16 +78,14 @@ class Dishdetail extends Component {
     render(){
 
         // console.log(this.props.dishSelect)
-        const {dishSelect} = this.props;
-        console.log(dishSelect);
+        const {dish} = this.props;
+        console.log(this.props);
 
-        return dishSelect?(
-            <div className="row">
-                <div className="col-12 col-md-5 m-1">
-                    {this.renderDish(dishSelect)}
-                </div>
-                <div className="col-12 col-md-5 m-1">
-                    {this.renderComments(dishSelect.comments)}
+        return dish?(
+            <div className="container">
+                <div className="row">
+                        {this.renderDish(dish)}
+                        {this.renderComments(dish.comments)}
                 </div>
             </div>
         ):(

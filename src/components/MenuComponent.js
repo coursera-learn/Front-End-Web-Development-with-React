@@ -1,21 +1,12 @@
 import React, { Component } from "react";
 import { Card, CardImg, CardTitle, CardImgOverlay} from "reactstrap";
-import Dishdetail from "./DishdetailComponent";
 
 class Menu extends Component {
 
     // 继承父类
     constructor(props){
         super(props);
-        this.state = {
-            selectedDish: null
-        };
-    }
 
-    // 获取点击Card的Dish 数据
-    OnDishSelect(dish){
-        // 设置state.seleceDish 值为 所点击数据
-        this.setState({selectedDish:dish})
     }
 
     // 渲染
@@ -23,8 +14,8 @@ class Menu extends Component {
 
         const menu = this.props.dishes.map((dish) =>{
             return(
-                <div key={dish.id} className="col-12 col-md-5 m-1">
-                    <Card onClick={()=>this.OnDishSelect(dish)} >
+                <div className="col-12 col-md-5 m-1">
+                    <Card key={dish.id} onClick={() => this.props.onClick(dish.id)} >
 
                         <CardImg width="100%" src={dish.image} alt={dish.name} />
 
@@ -42,9 +33,6 @@ class Menu extends Component {
                 <div className="row">
                     {menu}
                 </div>
-
-                <Dishdetail dishSelect={this.state.selectedDish}></Dishdetail>
-
 
             </div>
         );
