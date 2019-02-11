@@ -1,14 +1,5 @@
-import React, { Component } from "react";
+import React from "react";
 import { Card, CardImg, CardBody,CardText, CardTitle} from "reactstrap";
-
-class Dishdetail extends Component {
-
-    constructor(props){
-        super(props)
-        this.state = {
-
-        }
-    }
 
     // formatDate({ date }) {
     //     return new Date(date).toLocaleDateString("en-US", {
@@ -19,9 +10,7 @@ class Dishdetail extends Component {
     //   }
 
     //渲染点击Card
-    renderDish(dish) {
-        // console.log(dish)
-        if (dish != null) {
+    function RenderDish({dish}) {
             return(
                 <div className="col-12 col-md-5 m-1">
                     <Card>
@@ -34,25 +23,19 @@ class Dishdetail extends Component {
                 </div>
             )
         }
-        else{
-            return(
-                <div></div>
-            )
-        }
-    }
 
-    renderComments(comment){
+    function RenderComments({comments}){
         // console.log(comments)
-        if (comment != null) {
+        if (comments != null) {
 
-            let list = comment.map((comment)=>{
+            let list = comments.map((comments)=>{
 
                 return(
-                    <li key={comment.id} >
+                    <li key={comments.id} >
                         <div>
-                            <p>{comment.comment}</p>
-                            <p>--{comment.author},
-                            {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}</p>
+                            <p>{comments.comment}</p>
+                            <p>--{comments.author},
+                            {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comments.date)))}</p>
                         </div>
                     </li>
 
@@ -75,24 +58,37 @@ class Dishdetail extends Component {
         }
     }
 
-    render(){
+    const DishDetail = (props) => {
 
-        // console.log(this.props.dishSelect)
-        const {dish} = this.props;
-        console.log(this.props);
+        // console.log(props);
 
-        return dish?(
-            <div className="container">
+        // return props.dish?(
+        //     <div className="container">
+        //         <div className="row">
+        //                 <RenderDish dish={props.dish} />
+        //                 <RenderComments comments={props.dish.comments} />
+        //         </div>
+        //     </div>
+        // ):(
+        //     <div></div>
+        // )
+        if (props.dish != null) {
+            return(
+                <div className="container">
                 <div className="row">
-                        {this.renderDish(dish)}
-                        {this.renderComments(dish.comments)}
+                    <RenderDish dish={props.dish} />
+                    <RenderComments comments={props.dish.comments} />
                 </div>
             </div>
-        ):(
-            <div></div>
-        )
+            )
+        }else{
+            return(
+                <div></div>
+            )
+        }
+
     }
 
-}
 
-export default Dishdetail
+
+export default DishDetail
