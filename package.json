@@ -27,6 +27,7 @@
   ],
   "devDependencies": {
     "bootstrap-social": "^5.1.1",
-    "font-awesome": "^4.7.0"
+    "font-awesome": "^4.7.0",
+    "react-router-dom": "^4.2.2"
   }
 }
