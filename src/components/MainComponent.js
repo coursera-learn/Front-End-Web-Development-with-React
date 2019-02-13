@@ -7,6 +7,7 @@ import Menu from './MenuComponent';
 import DishDetail from './DishdetailComponent';
 import { DISHES } from '../shared/dishes';
 import Contact from './ContactComponent';
+import About from './AboutComponent'
 import { COMMENTS } from '../shared/comments';
 import { PROMOTIONS } from '../shared/promotions';
 import { LEADERS } from '../shared/leaders';
@@ -24,10 +25,6 @@ class Main extends Component {
         leaders: LEADERS
     };
   }
-
-  // onDishSelect(dishId) {
-  //   this.setState({ selectedDish: dishId});
-  // }
 
   render() {
 
@@ -57,6 +54,7 @@ class Main extends Component {
           <Route path='/home' component={HomePage} />
           <Route exact path='/menu' component={() => <Menu dishes={this.state.dishes} />} />
           <Route path='/menu/:dishId' component={DishWithId} />
+          <Route path='/aboutus' component={() => <About leader= {this.state.leaders}></About>} />
           <Route exact path='/contactus' component={Contact} />
           <Redirect to="/home" />
         </Switch>
