@@ -4,8 +4,9 @@ import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'r
 import { Link } from 'react-router-dom';
 
 function About(props) {
-    console.log(props.leader)
-    const leaders = props.leader.map((leader) => {
+    console.log(props)
+    console.log(props.leaders)
+    const leaders = props.leaders.map((leader) => {
         return (
             <RenderLeader leader = {leader} />
         );
