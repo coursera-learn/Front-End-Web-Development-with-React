@@ -4,47 +4,59 @@ import { Card, CardImg, CardText, CardBody,
 import { Link } from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Loading } from './LoadingComponent';
+import { baseUrl } from '../shared/baseUrl';
+import { FadeTransform, Fade, Stagger } from 'react-animation-components';
 
     //渲染点击Card
     function RenderDish({dish}) {
             return(
                 <div className="col-12 col-md-5 m-1">
+                     <FadeTransform in 
+                     transformProps={{
+                    exitTransform: 'scale(0.5) translateY(-50%)'
+                }}>
                     <Card>
-                        <CardImg width="100%" src={dish.image} alt={dish.name} />
+                        {/* <CardImg width="100%" src={dish.image} alt={dish.name} /> */}
+                        <CardImg top src={baseUrl + dish.image} alt={dish.name} />
                         <CardBody>
                             <CardTitle>{dish.name}</CardTitle>
                             <CardText>{dish.description}</CardText>
                         </CardBody>
                     </Card>
+                    </FadeTransform>
                 </div>
             )
         }
 
-    function RenderComments({comments, addComment, dishId}){
+    function RenderComments({comments, postComment, dishId}){
         // console.log(comments)
         if (comments != null) {
 
-            let list = comments.map((comments)=>{
-
-                return(
-                    <li key={comments.id} >
-                        <div>
-                            <p>{comments.comment}</p>
-                            <p>--{comments.author},
-                            {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comments.date)))}</p>
-                        </div>
-                    </li>
-
-                )
-            })
+            
 
             return(
                     <div className="col-12 col-md-5 m-1">
                         <h4>Comments</h4>
                         <ul className="list-unstyled">
-                            {list}
+                        <Stagger in>
+                           {
+                               comments.map((comments)=>{
+
+                                return(
+                                    <li key={comments.id} >
+                                        <div>
+                                            <p>{comments.comment}</p>
+                                            <p>--{comments.author},
+                                            {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comments.date)))}</p>
+                                        </div>
+                                    </li>
+                
+                                )
+                            })
+                           }
+                            </Stagger>
                         </ul>
-                        <CommentForm dishId={dishId} addComment={addComment}>
+                        <CommentForm dishId={dishId} postComment={postComment}>
 
                         </CommentForm>
                     </div>
@@ -95,7 +107,7 @@ import { Loading } from './LoadingComponent';
                             <RenderDish dish={props.dish} />
                             <RenderComments 
                                 comments={props.comments}
-                                addComment={props.addComment}
+                                postComment={props.postComment}
                                 dishId={props.dish.id}
                             />
                     </div>
@@ -140,7 +152,7 @@ class CommentForm extends Component {
 
         console.log('Current State is: ' + JSON.stringify(values));
         //
-        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
+        this.props.postComment(this.props.dishId, values.rating, values.author, values.comment);
 
     }
 

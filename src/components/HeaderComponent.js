@@ -3,6 +3,7 @@ import { Navbar, NavbarBrand, Nav, NavbarToggler, Collapse, NavItem, Jumbotron,
     Button, Modal, ModalHeader, ModalBody,
     Form, FormGroup, Input, Label } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
+import { baseUrl } from '../shared/baseUrl';
 
 
 class Header extends Component {
@@ -79,6 +80,7 @@ class Header extends Component {
             <div className="container">
                 <NavbarToggler onClick={this.toggleNav} />
                 <NavbarBrand className="mr-auto" href="/"><img src='assets/images/logo.png' height="30" width="41" alt='Ristorante Con Fusion' /></NavbarBrand>
+                {/* <NavbarBrand className="mr-auto" href="/"><img src={baseUrl+'images/logo.png'} height="30" width="41" alt='Ristorante Con Fusion' /></NavbarBrand> */}
 
                 <Collapse isOpen={this.state.isNavOpen} navbar>
                     <Nav navbar>

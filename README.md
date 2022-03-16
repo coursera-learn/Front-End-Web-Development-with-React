@@ -1,3 +1,10 @@
+server start(include /images):  
+
+json-server --watch db.json -s ./  -p 3001 -d 2000
+
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
