@@ -9,7 +9,7 @@ export const Comments = (state = {errMess: null, comments:[]}, action) => {
         //     comment.date = new Date().toISOString();
         //     console.log("Comment: ", comment);
         //     return state.concat(comment);
-        case ActionTypes.ADD_COMMENT:
+        case ActionTypes.ADD_COMMENTS:
             return {...state, errMess: null, comments: action.payload};
         case ActionTypes.COMMENTS_FAILED:
             return {...state, errMess: action.payload};

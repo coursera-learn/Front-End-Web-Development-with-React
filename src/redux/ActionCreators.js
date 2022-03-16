@@ -3,11 +3,6 @@ import * as ActionTypes from './ActionTypes';
 
 import { baseUrl } from '../shared/baseUrl';
 
-export const addComment = (comment) => ({
-    type: ActionTypes.ADD_COMMENT,
-    payload: comment
-});
-
 export const postComment = (dishId, rating, author, comment) => (dispatch) => {
 
     const newComment = {
@@ -28,6 +23,7 @@ export const postComment = (dishId, rating, author, comment) => (dispatch) => {
     })
     .then(response => {
         if (response.ok) {
+            console.log(response);
           return response;
         } else {
           var error = new Error('Error ' + response.status + ': ' + response.statusText);
@@ -109,6 +105,11 @@ export const fetchComments = () => (dispatch) => {
 export const commentsFailed = (errmess) => ({
     type: ActionTypes.COMMENTS_FAILED,
     payload: errmess
+});
+
+export const addComment = (comment) => ({
+    type: ActionTypes.ADD_COMMENT,
+    payload: comment
 });
 
 export const addComments = (comments) => ({
