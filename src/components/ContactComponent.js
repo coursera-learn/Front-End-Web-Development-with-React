@@ -23,6 +23,8 @@ class Contact extends Component {
 
         console.log('Current State is: ' + JSON.stringify(values));
         alert('Current State is: ' + JSON.stringify(values));
+        
+        this.props.postFeedback(values.firstname, values.lastname, values.telnum, values.email, values.agree, values.contactType, values.message);
         this.props.resetFeedBackForm();
         // event.preventDefault();
     }
