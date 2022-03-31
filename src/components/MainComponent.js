@@ -41,11 +41,6 @@ const mapDispatchToProps = dispatch => ({
 
 class Main extends Component {
 
-  // eslint-disable-next-line no-useless-constructor
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount(){
     // 请求数据
     this.props.fetchDishes();
