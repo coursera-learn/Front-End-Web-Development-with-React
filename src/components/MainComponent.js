@@ -10,7 +10,7 @@ import About from './AboutComponent'
 
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
-import { postComment, fetchDishes, fetchComments, fetchPromos, fetchLeaders } from '../redux/ActionCreators';
+import { postComment, fetchDishes, fetchComments, fetchPromos, fetchLeaders,postFeedback } from '../redux/ActionCreators';
 import { actions } from "react-redux-form";
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
@@ -26,23 +26,20 @@ const mapStateToProps = state => {
   }
 }
 const mapDispatchToProps = dispatch => ({
-  postComment: (dishId, rating, author, comment) => dispatch(postComment(dishId, rating, author, comment)),
   fetchDishes: () => {dispatch(fetchDishes())},
   resetFeedBackForm: () => {dispatch(actions.reset('feedback'))},
   fetchComments: () => dispatch(fetchComments()),
   fetchPromos: () => dispatch(fetchPromos()),
-  fetchLeaders: () => dispatch(fetchLeaders())
+  fetchLeaders: () => dispatch(fetchLeaders()),
+
+  postComment: (dishId, rating, author, comment) => dispatch(postComment(dishId, rating, author, comment)),
+  postFeedback: (firstname, lastname, telnum, email, agree, contactType, message) => dispatch(postFeedback(firstname, lastname, telnum, email, agree, contactType, message)),
 
 });
 
 
 
 class Main extends Component {
-
-  // eslint-disable-next-line no-useless-constructor
-  constructor(props) {
-    super(props);
-  }
 
   componentDidMount(){
     // 请求数据
@@ -54,7 +51,9 @@ class Main extends Component {
 
   render() {
 
+    // Home
     const HomePage = () => {
+      console.log(this.props.leaders)
       return(
         <Home 
           dish={this.props.dishes.dishes.filter((dish) => dish.featured)[0]}
@@ -65,16 +64,28 @@ class Main extends Component {
           promoLoading={this.props.promotions.isLoading}
           promoErrMess={this.props.promotions.errMess}
 
-          leader={this.props.leaders.filter((leader) => leader.featured)[0]}
+          leader={this.props.leaders.leaders.filter((leader) => leader.featured)[0]}
+          leaderLoading={this.props.leaders.isLoading}
+          leaderErrMess={this.props.leaders.errMess}
         />
       );
     }
+    // AboutUs
     const AboutPage = () => {
       return(
         <About 
-        leaders={this.props.leaders}
+        leaders={this.props.leaders.leaders}
         isLoading={this.props.leaders.isLoading}
         errMess={this.props.leaders.errMess}
+        />
+      );
+    }
+    // Contact
+    const ContactPage = () => {
+      return(
+        <Contact 
+        resetFeedBackForm={this.props.resetFeedBackForm}
+        postFeedback={this.props.postFeedback}
         />
       );
     }
@@ -103,7 +114,7 @@ class Main extends Component {
                     <Route exact path='/aboutus' component={AboutPage} />
                     <Route exact path='/menu' component={() => <Menu dishes={this.props.dishes} />} />
                     <Route path='/menu/:dishId' component={DishWithId} />
-                    <Route exact path='/contactus' component={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm} />} />
+                    <Route exact path='/contactus' component={ContactPage} />} />
                     <Redirect to="/home" />
                 </Switch>
               </CSSTransition>
