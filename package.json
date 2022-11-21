@@ -12,7 +12,7 @@
     "react-popper": "^0.9.2",
     "react-redux": "^5.0.7",
     "react-redux-form": "^1.16.8",
-    "react-scripts": "^2.1.5",
+    "react-scripts": "^5.0.1",
     "react-transition-group": "^4.4.2",
     "reactstrap": "^5.0.0",
     "redux": "^3.7.2"
